@@ -1,27 +1,55 @@
-# paveg/ulid
+# ulid
 
-ULID (Universally Unique Lexicographically Sortable Identifier) implementation for MoonBit.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![MoonBit](https://img.shields.io/badge/MoonBit-v0.1.0-purple.svg)](https://www.moonbitlang.com/)
 
-## Features
+ULID (Universally Unique Lexicographically Sortable Identifier) implementation for [MoonBit](https://www.moonbitlang.com/), compliant with [ulid/spec](https://github.com/ulid/spec).
 
-- Full ULID specification compliance ([ulid/spec](https://github.com/ulid/spec))
-- Crockford's Base32 encoding/decoding
-- Monotonic ULID generation (strictly increasing within same millisecond)
-- String and binary (16-byte) representation
-- Validation and comparison support
-- Based on MoonBit standard library (`@random`)
+## Prerequisites
+
+This project requires the **MoonBit toolchain**. Install it from the official website:
+
+- 🌙 [MoonBit](https://www.moonbitlang.com/) - A modern programming language optimized for WebAssembly
+
+```bash
+# Verify installation
+moon version
+```
 
 ## Installation
 
-Add to your `moon.mod.json`:
-
-```json
-{
-  "deps": {
-    "paveg/ulid": "0.1.0"
-  }
-}
+```bash
+moon add paveg/ulid
 ```
+
+## Development
+
+```bash
+# Build the project
+moon build
+
+# Run tests
+moon test
+
+# Format code
+moon fmt
+
+# Check for errors without building
+moon check
+```
+
+## Packages
+
+- `paveg/ulid/lib`: Core ULID implementation
+
+## Features
+
+- [x] Full ULID specification compliance ([ulid/spec](https://github.com/ulid/spec))
+- [x] Crockford's Base32 encoding/decoding
+- [x] Monotonic ULID generation (strictly increasing within same millisecond)
+- [x] String and binary (16-byte) representation
+- [x] Validation and comparison support
+- [x] Based on MoonBit standard library (`@random`)
 
 ## Usage
 
@@ -100,26 +128,28 @@ if ulid1 == ulid2 {
 
 ### Types
 
-- `ULID` - ULID structure (48-bit timestamp + 80-bit randomness)
-- `Generator` - ULID generator with injectable time source
-- `MonotonicGenerator` - Monotonic ULID generator
+| Type                 | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `ULID`               | ULID structure (48-bit timestamp + 80-bit randomness) |
+| `Generator`          | ULID generator with injectable time source      |
+| `MonotonicGenerator` | Monotonic ULID generator                        |
 
 ### Functions
 
-| Function | Description |
-|----------|-------------|
-| `ULID::from_parts(timestamp, randomness)` | Create ULID from components |
-| `ULID::from_string(s)` | Parse ULID from 26-character string |
-| `ULID::from_bytes(bytes)` | Create ULID from 16-byte binary |
-| `ulid.to_string()` | Convert to 26-character string |
-| `ulid.to_bytes()` | Convert to 16-byte binary |
-| `ulid.timestamp()` | Get timestamp (milliseconds) |
-| `ulid.randomness()` | Get randomness bytes |
-| `ulid.compare(other)` | Compare two ULIDs |
-| `is_valid(s)` | Validate ULID string |
-| `Generator::new(get_time, rand)` | Create generator |
-| `gen.generate()` | Generate new ULID |
-| `MonotonicGenerator::new(get_time, rand)` | Create monotonic generator |
+| Function                                  | Description                         |
+| ----------------------------------------- | ----------------------------------- |
+| `ULID::from_parts(timestamp, randomness)` | Create ULID from components         |
+| `ULID::from_string(s)`                    | Parse ULID from 26-character string |
+| `ULID::from_bytes(bytes)`                 | Create ULID from 16-byte binary     |
+| `ulid.to_string()`                        | Convert to 26-character string      |
+| `ulid.to_bytes()`                         | Convert to 16-byte binary           |
+| `ulid.timestamp()`                        | Get timestamp (milliseconds)        |
+| `ulid.randomness()`                       | Get randomness bytes                |
+| `ulid.compare(other)`                     | Compare two ULIDs                   |
+| `is_valid(s)`                             | Validate ULID string                |
+| `Generator::new(get_time, rand)`          | Create generator                    |
+| `gen.generate()`                          | Generate new ULID                   |
+| `MonotonicGenerator::new(get_time, rand)` | Create monotonic generator          |
 
 ## Design Notes
 
@@ -138,6 +168,7 @@ fn get_time() -> Int64 {
 ```
 
 This design:
+
 - Follows MoonBit standard library patterns
 - Enables easy testing with mock time
 - Allows runtime-specific implementations
