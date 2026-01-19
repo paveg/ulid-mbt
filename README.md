@@ -128,11 +128,11 @@ if ulid1 == ulid2 {
 
 ### Types
 
-| Type                 | Description                                     |
-| -------------------- | ----------------------------------------------- |
+| Type                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
 | `ULID`               | ULID structure (48-bit timestamp + 80-bit randomness) |
-| `Generator`          | ULID generator with injectable time source      |
-| `MonotonicGenerator` | Monotonic ULID generator                        |
+| `Generator`          | ULID generator with injectable time source            |
+| `MonotonicGenerator` | Monotonic ULID generator                              |
 
 ### Functions
 
